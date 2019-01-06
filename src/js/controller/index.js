@@ -5,12 +5,6 @@ import Controller from './components/Controller';
 
 const airconsole = new AirConsole();
 
-document.querySelectorAll('button').forEach(button => {
-  button.addEventListener('click', () => {
-    airconsole.message(AirConsole.SCREEN, button.id);
-  });
-});
-
 // Listen for messages
 airconsole.onMessage = (from, data) => {
   // Show message on device screen
@@ -19,4 +13,7 @@ airconsole.onMessage = (from, data) => {
   document.body.appendChild(info);
 };
 
-ReactDOM.render(<Controller />, document.getElementById('root'));
+ReactDOM.render(
+  <Controller airconsole={airconsole} />,
+  document.getElementById('root'),
+);
