@@ -9,6 +9,7 @@
         "extensions": [".js", "jsx"]
       }
     ],
+    "react/prop-types": "off",
     "prettier/prettier": "error",
     "max-len": ["error", 100]
   },
