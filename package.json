@@ -31,7 +31,8 @@
   },
   "dependencies": {
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "xstate": "^4.2.3"
   },
   "alias": {
     "air-console": "./vendor/js/airconsole-1.7.0.js"
