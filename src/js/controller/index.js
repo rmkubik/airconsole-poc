@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AirConsole from '../../../vendor/js/airconsole-1.7.0';
+import AirConsole from 'air-console';
 import Controller from './components/Controller';
 
 const airconsole = new AirConsole();
