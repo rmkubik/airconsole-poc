@@ -1,3 +1,5 @@
+import AirConsole from "../../../vendor/js/airconsole-1.7.0";
+
 var airconsole = new AirConsole();
 
 document.querySelectorAll("button").forEach(button => {
