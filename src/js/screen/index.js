@@ -29,4 +29,7 @@ airconsole.onMessage = (deviceId, data) => {
   document.body.appendChild(info);
 };
 
-ReactDOM.render(<Screen />, document.getElementById('root'));
+ReactDOM.render(
+  <Screen airconsole={airconsole} />,
+  document.getElementById('root'),
+);

@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
 import AirConsole from 'air-console';
+import MessageLog from '../../shared/components/MessageLog';
 
 class Controller extends Component {
-  state = {};
+  state = {
+    messages: [],
+  };
+
+  constructor(props) {
+    super(props);
+
+    // eslint-disable-next-line no-param-reassign
+    props.airconsole.onMessage = (id, data) => {
+      this.setState(prevState => ({
+        messages: [
+          ...prevState.messages,
+          {
+            id,
+            data,
+          },
+        ],
+      }));
+    };
+  }
 
   render() {
     const { airconsole } = this.props;
+    const { messages } = this.state;
 
     const onClick = event => {
       airconsole.message(AirConsole.SCREEN, event.target.id);
     };
+
     return (
       <div>
         <h1>Controller</h1>
@@ -22,6 +44,7 @@ class Controller extends Component {
         <button id="btn-scissors" type="button" onClick={onClick}>
           Scissors
         </button>
+        <MessageLog messages={messages} />
       </div>
     );
   }
