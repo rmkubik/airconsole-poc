@@ -27,7 +27,21 @@ class Screen extends Component {
                 target: 'loading',
                 actions: 'registerPlayer',
               },
-              start: 'waiting',
+              readied: 'processingReady',
+            },
+          },
+          processingReady: {
+            id: 'processingReady',
+            invoke: {
+              src: 'processReady',
+              onDone: {
+                target: 'waiting',
+                actions: 'readyPlayer',
+              },
+              onError: {
+                target: 'loading',
+                actions: 'readyPlayer',
+              },
             },
           },
           waiting: {
@@ -51,20 +65,49 @@ class Screen extends Component {
       {
         actions: {
           registerPlayer: assign({
-            players: (ctx, event) => ({
+            players: (ctx, evt) => ({
               ...ctx.players,
-              [event.deviceId]: {
+              [evt.deviceId]: {
                 action: undefined,
+                ready: false,
               },
             }),
           }),
           recordMessage: assign({
-            messages: (ctx, event) => [...ctx.messages, event.message],
+            messages: (ctx, evt) => [...ctx.messages, evt.message],
+          }),
+          readyPlayer: assign({
+            players: (ctx, evt) => ({
+              ...ctx.players,
+              [evt.data.deviceId]: {
+                ...ctx.players[evt.data.deviceId],
+                ready: true,
+              },
+            }),
           }),
         },
         services: {
-          processMessage: (ctx, evt) => {
-            return Promise.resolve({});
+          processMessage: (ctx, evt) => Promise.resolve({}),
+          processReady: (ctx, evt) => {
+            const newPlayersCtx = {
+              ...ctx.players,
+              [evt.deviceId]: {
+                ...ctx.players[evt.deviceId],
+                ready: true,
+              },
+            };
+
+            // not all players ready
+            if (Object.values(newPlayersCtx).some(player => !player.ready)) {
+              return Promise.reject({ deviceId: evt.deviceId });
+            }
+
+            // not enough players connected
+            if (Object.values(newPlayersCtx).length < 2) {
+              return Promise.reject({ deviceId: evt.deviceId });
+            }
+
+            return Promise.resolve({ deviceId: evt.deviceId });
           },
         },
       },
@@ -79,6 +122,13 @@ class Screen extends Component {
 
     // eslint-disable-next-line no-param-reassign
     props.airconsole.onMessage = (id, data) => {
+      switch (data) {
+        case 'readied':
+          screenService.send({ type: 'readied', deviceId: id });
+          break;
+        default:
+          break;
+      }
       this.setState(prevState => ({
         messages: [
           ...prevState.messages,
