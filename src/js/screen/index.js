@@ -1,4 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import AirConsole from '../../../vendor/js/airconsole-1.7.0';
+import Screen from './components/Screen';
 
 const airconsole = new AirConsole();
 
@@ -25,3 +28,5 @@ airconsole.onMessage = (deviceId, data) => {
   info.innerHTML = JSON.stringify(actions, undefined, 2);
   document.body.appendChild(info);
 };
+
+ReactDOM.render(<Screen />, document.getElementById('root'));
