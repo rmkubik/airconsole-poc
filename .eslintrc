@@ -14,5 +14,15 @@
   },
   "env": {
     "browser": true
+  },
+  "settings": {
+    "import/resolver": {
+      "parcel": {
+        "rootDir": ""
+      },
+      "alias": {
+        "map": [["air-console", "./vendor/js/airconsole-1.7.0.js"]]
+      }
+    }
   }
 }
