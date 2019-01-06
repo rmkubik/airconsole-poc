@@ -1,0 +1,20 @@
+{
+  "name": "airconsole-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/controller.html src/screen.html",
+    "simulate": "opn http://www.airconsole.com/simulator/#http://localhost:1234",
+    "simulate-device": "opn http://www.airconsole.com/#http://localhost:1234",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "opn-cli": "^4.0.0",
+    "parcel": "^1.11.0"
+  },
+  "dependencies": {}
+}
