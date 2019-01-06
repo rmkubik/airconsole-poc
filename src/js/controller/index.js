@@ -1,4 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import AirConsole from '../../../vendor/js/airconsole-1.7.0';
+import Controller from './components/Controller';
 
 const airconsole = new AirConsole();
 
@@ -15,3 +18,5 @@ airconsole.onMessage = (from, data) => {
   info.innerHTML = data;
   document.body.appendChild(info);
 };
+
+ReactDOM.render(<Controller />, document.getElementById('root'));
