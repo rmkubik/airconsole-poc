@@ -18,9 +18,7 @@ class Screen extends Component {
     this.players = new PlayerList(this);
 
     // eslint-disable-next-line no-param-reassign
-    props.airconsole.onMessage = (id, data) => {
-      const message = JSON.parse(data);
-
+    props.airconsole.onMessage = (id, message) => {
       switch (message.type) {
         case 'readied':
           this.players.ready(id);

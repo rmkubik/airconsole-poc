@@ -38,7 +38,7 @@ class Controller extends Component {
       {
         actions: {
           readied: (ctx, evt) => {
-            props.airconsole.message(AirConsole.SCREEN, 'readied');
+            props.airconsole.message(AirConsole.SCREEN, { type: 'readied' });
           },
         },
       },
@@ -71,7 +71,10 @@ class Controller extends Component {
     const { messages } = this.state;
 
     const onClick = event => {
-      airconsole.message(AirConsole.SCREEN, event.target.id);
+      airconsole.message(AirConsole.SCREEN, {
+        type: 'action',
+        action: event.target.id,
+      });
     };
 
     return (
