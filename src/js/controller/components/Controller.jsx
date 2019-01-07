@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Machine, actions } from 'xstate';
-import { interpret } from 'xstate/lib/interpreter';
 import AirConsole from 'air-console';
 import MessageLog from '../../shared/components/MessageLog';
 
@@ -12,48 +10,8 @@ class Controller extends Component {
   constructor(props) {
     super(props);
 
-    const controllerMachine = Machine(
-      {
-        initial: 'loading',
-        context: {
-          messages: [],
-        },
-        states: {
-          loading: {
-            on: {
-              ready: 'readied',
-            },
-          },
-          readied: {
-            onEntry: ['readied'],
-            on: {
-              message: {
-                target: 'processing',
-                actions: 'recordMessage',
-              },
-            },
-          },
-        },
-      },
-      {
-        actions: {
-          readied: (ctx, evt) => {
-            props.airconsole.message(AirConsole.SCREEN, { type: 'readied' });
-          },
-        },
-      },
-    );
-
-    this.controllerService = interpret(controllerMachine)
-      .onTransition(state => {
-        console.log('service state', state);
-        this.setState(state.context);
-      })
-      .start();
-
     // eslint-disable-next-line no-param-reassign
     props.airconsole.onMessage = (id, data) => {
-      // controllerService.send()
       this.setState(prevState => ({
         messages: [
           ...prevState.messages,
@@ -82,7 +40,11 @@ class Controller extends Component {
         <h1>Controller</h1>
         <button
           type="button"
-          onClick={() => this.controllerService.send('ready')}
+          onClick={() =>
+            airconsole.message(AirConsole.SCREEN, {
+              type: 'readied',
+            })
+          }
         >
           Ready
         </button>

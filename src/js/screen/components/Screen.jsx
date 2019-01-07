@@ -19,6 +19,8 @@ class Screen extends Component {
 
     // eslint-disable-next-line no-param-reassign
     props.airconsole.onMessage = (id, message) => {
+      this.logMessage(id, message);
+
       switch (message.type) {
         case 'readied':
           this.players.ready(id);
@@ -45,13 +47,25 @@ class Screen extends Component {
     console.log(props.airconsole);
   }
 
+  logMessage(id, data) {
+    this.setState(prevState => ({
+      messages: [
+        ...prevState.messages,
+        {
+          id,
+          data,
+        },
+      ],
+    }));
+  }
+
   render() {
-    const { messages } = this.state;
+    const { messages, ...state } = this.state;
 
     return (
       <div>
         <h1>Screen</h1>
-        <pre>{CircularJSON.stringify(this.state, undefined, 2)}</pre>
+        <pre>{CircularJSON.stringify(state, undefined, 2)}</pre>
         <MessageLog messages={messages} />
       </div>
     );
