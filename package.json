@@ -30,6 +30,7 @@
     "prettier": "^1.15.3"
   },
   "dependencies": {
+    "circular-json-es6": "^2.0.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "xstate": "^4.2.3"
