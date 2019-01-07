@@ -22,6 +22,11 @@ class PlayerList {
     this.setState();
   }
 
+  takeAction(id, action) {
+    this.list[id].takeAction(action);
+    this.setState();
+  }
+
   allPlayersReady() {
     return Object.values(this.list).every(player => player.isReady());
   }

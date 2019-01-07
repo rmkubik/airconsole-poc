@@ -19,13 +19,19 @@ class Screen extends Component {
 
     // eslint-disable-next-line no-param-reassign
     props.airconsole.onMessage = (id, data) => {
-      switch (data) {
+      const message = JSON.parse(data);
+
+      switch (message.type) {
         case 'readied':
           this.players.ready(id);
 
           if (this.players.allPlayersReady() && this.players.enoughPlayers()) {
             this.game.start();
           }
+          break;
+
+        case 'action':
+          this.players.takeAction(id, message.action);
           break;
 
         default:
