@@ -32,6 +32,10 @@ class Screen extends Component {
 
         case 'action':
           this.players.takeAction(id, message.action);
+
+          if (this.players.allPlayersTookAction()) {
+            this.players.calcWinners();
+          }
           break;
 
         default:

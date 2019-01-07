@@ -13,6 +13,10 @@ class Player {
     return this.readied;
   }
 
+  tookAction() {
+    return Boolean(this.action);
+  }
+
   takeAction(action) {
     if (!this.action) {
       this.action = action;

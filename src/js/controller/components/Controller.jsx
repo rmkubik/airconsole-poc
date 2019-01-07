@@ -28,10 +28,10 @@ class Controller extends Component {
     const { airconsole } = this.props;
     const { messages } = this.state;
 
-    const onClick = event => {
+    const onClick = action => {
       airconsole.message(AirConsole.SCREEN, {
         type: 'action',
-        action: event.target.id,
+        action,
       });
     };
 
@@ -48,13 +48,17 @@ class Controller extends Component {
         >
           Ready
         </button>
-        <button id="btn-rock" type="button" onClick={onClick}>
+        <button id="btn-rock" type="button" onClick={() => onClick('rock')}>
           Rock
         </button>
-        <button id="btn-paper" type="button" onClick={onClick}>
+        <button id="btn-paper" type="button" onClick={() => onClick('paper')}>
           Paper
         </button>
-        <button id="btn-scissors" type="button" onClick={onClick}>
+        <button
+          id="btn-scissors"
+          type="button"
+          onClick={() => onClick('scissors')}
+        >
           Scissors
         </button>
         <MessageLog messages={messages} />
