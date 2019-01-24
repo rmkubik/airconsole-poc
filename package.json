@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/controller.html src/screen.html",
-    "simulate": "opn http://www.airconsole.com/simulator/#http://localhost:1234",
-    "simulate-device": "opn http://www.airconsole.com/#http://localhost:1234",
+    "simulate": "ipconfig getifaddr en0 | xargs -I {} opn http://www.airconsole.com/simulator/#http://{}:1234",
+    "simulate-device": "ipconfig getifaddr en0 | xargs -I {} opn http://www.airconsole.com/#http://{}:1234",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
